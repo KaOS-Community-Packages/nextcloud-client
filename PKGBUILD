@@ -1,6 +1,6 @@
 pkgname='nextcloud-client'
-pkgver='2.2.3'
-pkgrel='1'
+pkgver=2.2.3
+pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
 url='https://nextcloud.com/'
