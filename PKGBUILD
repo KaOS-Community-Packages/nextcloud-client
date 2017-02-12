@@ -1,39 +1,45 @@
 pkgname=nextcloud-client
-pkgver=2.2.4
+pkgver=2.2.4.109.5fdd722
 pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
-url='https://nextcloud.com/'
+url="https://nextcloud.com/"
 license=('GPL2')
-depends=('qt5-webkit' 'neon' 'qtkeychain' 'qt5-base' 'sqlite')
-makedepends=('cmake' )
+depends=('qtwebkit-tp' 'qtkeychain' 'qt5-base' 'sqlite')
+makedepends=('cmake')
 conflicts=('owncloud-client')
-source=("${pkgname}::git+https://github.com/nextcloud/client_theming.git")
-sha256sums=('SKIP')
-backup=('etc/Nextcloud/sync-exclude.lst')
+replaces=('owncloud-client')
+provides=('owncloud-client')
+source=("${pkgname}::git+https://github.com/nextcloud/client_theming.git"
+        'nextcloud.desktop')
+md5sums=('SKIP'
+         '365934e2d2afa9fe4cca7c9f0737fc3b')
+
+pkgver() {
+    cd ${pkgname}/client
+    echo $(git tag | tail -1 | sed -e 's/^v//').$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
 
 prepare() {
-  cd "${srcdir}/${pkgname}"
-  git submodule update --init
-  cd client
-  git submodule update --init
-
-  mkdir "${srcdir}/${pkgname}/build-linux"
+    cd ${pkgname}
+    git submodule update --init --recursive
 }
 
 build() {
-  cd "${srcdir}/${pkgname}/build-linux"
-
-  cmake -D OEM_THEME_DIR=${srcdir}/${pkgname}/nextcloudtheme ../client \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_SYSCONFDIR=/etc/${pkgname}
-
-  make
+    mkdir -p build
+    cd build
+    
+    cmake -DOEM_THEME_DIR=${srcdir}/${pkgname}/nextcloudtheme ../${pkgname}/client \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_INSTALL_LIBDIR=lib
+    make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}/build-linux"
-  make DESTDIR="${pkgdir}" install
+    cd ${srcdir}/build
+    make DESTDIR="${pkgdir}" install
+    rm ${pkgdir}/usr/share/applications/nextcloud.desktop
+    rm -rf ${pkgdir}/usr/share/nautilus-python
+    install -Dm644 ${srcdir}/nextcloud.desktop \
+            ${pkgdir}/usr/share/applications/nextcloud.desktop
 }
