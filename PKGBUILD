@@ -16,7 +16,7 @@ md5sums=('SKIP'
          '365934e2d2afa9fe4cca7c9f0737fc3b')
 
 pkgver() {
-    cd ${pkgname}/client
+    cd ${pkgname}
     echo $(git tag | tail -1 | sed -e 's/^v//').$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
