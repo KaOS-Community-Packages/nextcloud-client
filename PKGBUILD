@@ -1,5 +1,5 @@
 pkgname=nextcloud-client
-pkgver=2.2.4.109.5fdd722
+pkgver=2.3.2.215.30dcfc4
 pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
@@ -17,7 +17,7 @@ md5sums=('SKIP'
 
 pkgver() {
     cd ${pkgname}
-    echo $(git tag | tail -1 | sed -e 's/^v//').$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+    echo $(git tag | tail -1 | sed -e 's/^v//' | sed -e 's/\-beta[0-9]//').$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
 prepare() {
@@ -37,9 +37,9 @@ build() {
 
 package() {
     cd ${srcdir}/build
-    make DESTDIR="${pkgdir}" install
+    make DESTDIR=${pkgdir} install
     rm ${pkgdir}/usr/share/applications/nextcloud.desktop
-    rm -rf ${pkgdir}/usr/share/nautilus-python
+    rm -rf ${pkgdir}/usr/share/*-python
     install -Dm644 ${srcdir}/nextcloud.desktop \
             ${pkgdir}/usr/share/applications/nextcloud.desktop
 }
