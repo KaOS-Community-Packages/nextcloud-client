@@ -1,5 +1,5 @@
 pkgname=nextcloud-client
-pkgver=2.3.2.215.30dcfc4
+pkgver=2.3.2.215.1ee750d
 pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
