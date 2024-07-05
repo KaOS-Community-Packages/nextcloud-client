@@ -1,5 +1,5 @@
 pkgname=nextcloud-client
-pkgver=3.13.1
+pkgver=3.13.2
 pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('karchive' 'openssl' 'qt5-graphicaleffects' 'qt5-quickcontrols2' 'qt5-s
          'qt5-tools' 'qt5-websockets' 'qtkeychain' 'qtwebengine' 'sqlite' 'xdg-utils')
 backup=('etc/Nextcloud/sync-exclude.lst')
 source=("https://github.com/nextcloud/desktop/archive/v${pkgver}.tar.gz")
-md5sums=('aa99c899b187dd9af4886843875e1dad')
+md5sums=('e32695e65176e68376d271313ff7d879')
 
 build() {
     mkdir -p build
