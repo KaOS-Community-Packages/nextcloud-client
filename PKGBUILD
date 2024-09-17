@@ -1,16 +1,15 @@
 pkgname=nextcloud-client
-pkgver=3.13.3
+pkgver=3.14.0
 pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
 url="https://nextcloud.com/"
 license=('GPL2')
 makedepends=('cmake')
-depends=('karchive' 'openssl' 'qt5-graphicaleffects' 'qt5-quickcontrols2' 'qt5-svg'
-         'qt5-tools' 'qt5-websockets' 'qtkeychain' 'qtwebengine' 'sqlite' 'xdg-utils')
+depends=('karchive6' 'openssl' 'qtkeychain-qt6' 'qt6-tools' 'qt6-webengine' 'qt6-svg' 'sqlite' 'xdg-utils')
 backup=('etc/Nextcloud/sync-exclude.lst')
 source=("https://github.com/nextcloud/desktop/archive/v${pkgver}.tar.gz")
-md5sums=('e4691abc761fda84cba8425775d85346')
+md5sums=('18b88820573a0985904d2517ad703407')
 
 build() {
     mkdir -p build
@@ -19,7 +18,7 @@ build() {
     cmake ../desktop-${pkgver} \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_INSTALL_PREFIX=/usr \
-          -DBUILD_SHELL_INTEGRATION_DOLPHIN=$(usex dolphin)
+          -DBUILD_SHELL_INTEGRATION_DOLPHIN=on
     make
 }
 
