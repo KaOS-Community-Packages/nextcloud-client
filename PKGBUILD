@@ -1,5 +1,5 @@
 pkgname=nextcloud-client
-pkgver=3.15.2
+pkgver=3.15.3
 pkgrel=1
 pkgdesc='Nextcloud desktop client'
 arch=('x86_64')
@@ -9,7 +9,7 @@ makedepends=('cmake' 'extra-cmake-modules' 'doxygen' 'librsvg')
 depends=('karchive6' 'openssl' 'qtkeychain-qt6' 'qt6-tools' 'qt6-webengine' 'qt6-svg' 'sqlite' 'xdg-utils')
 backup=('etc/Nextcloud/sync-exclude.lst')
 source=("https://github.com/nextcloud/desktop/archive/v${pkgver}.tar.gz")
-md5sums=('e73edf74528b95cfddd78ceca31c6882')
+md5sums=('fa04ca532046b324abe0bb64ea250dce')
 
 prepare() {
     cd "desktop-${pkgver}"
